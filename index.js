@@ -23,14 +23,17 @@ app.use(bodyParser.json());
 
 // Router
 app.get('/', (req, res) => {
-    Question.findAll({ raw: true })
-        .then((questions) => {
-            res.render('index',{
-                questions: questions
-            });
-        }).catch((err) => {
-            console.log(err);
+    Question.findAll({
+        raw: true, order: [
+            ['id', 'DESC']
+        ]
+    }).then((questions) => {
+        res.render('index', {
+            questions: questions
         });
+    }).catch((err) => {
+        console.log(err);
+    });
 });
 
 app.get('/questions', (req, res) => {
