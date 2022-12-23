@@ -40,6 +40,23 @@ app.get('/questions', (req, res) => {
     res.render('questions')
 });
 
+app.get('/question/:id', (req, res) => {
+    var id = req.params.id;
+    Question.findOne({
+        where: {id: id}
+    }).then((question) => {     
+           
+        if(question !== null) {
+            res.render('question', {
+                question: question
+            });
+        }else{
+            console.log(id);
+            res.redirect('/');
+        }
+    });
+});
+
 app.post('/questionssave', (req, res) => {
     var title = req.body.title;
     var description = req.body.description;
