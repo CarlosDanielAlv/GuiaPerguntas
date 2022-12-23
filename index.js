@@ -1,6 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const connection = require('./database/database');
 const app = express();
+
+// Database
+connection.authenticate()
+    .then(() => {
+        console.log('Database connected!');
+    }).catch(err => {
+        console.log(err);
+    });
+
 
 // informando ao express usar o EJS como view engine
 app.set('view engine', 'ejs');
@@ -22,8 +32,8 @@ app.get('/questions', (req, res) => {
 app.post('/questionssave', (req, res) => {
     var title = req.body.title;
     var description = req.body.description;
-    
-    res.send(`Form Received! Title: ${title}, description: ${description}::: Response = Impossível`);
+
+    res.send(`Form Received! Title: ${title}, description: ${description}`);
 });
 
 app.listen(8080, () => {
