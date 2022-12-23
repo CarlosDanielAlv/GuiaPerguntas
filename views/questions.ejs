@@ -8,23 +8,18 @@
       </div>
 
       <div class="card-body">
-        <form>
+        <form method="POST" action="/questionssave">
+
           <div class="form-group">
-            <label for="titulo">Título</label>
-            <input
-              name="titulo"
-              type="text"
-              placeholder="titulo"
-              class="form-control"
-            />
+            <label for="title">Título</label>
+            <input type="text" placeholder="titulo" class="form-control" name="title" id="title"/>
           </div>
+          
           <div class="form-group">
-            <label>Descrição</label>
-            <textarea
-              placeholder="Descreva sua pergunta aqui"
-              class="form-control"
-            ></textarea>
+            <label for="description">Descrição</label>
+            <textarea placeholder="Descreva sua pergunta aqui" class="form-control" name="description" id="description"></textarea>
           </div>
+
           <button class="btn btn-primary">Enviar Pergunta</button>
         </form>
       </div>
