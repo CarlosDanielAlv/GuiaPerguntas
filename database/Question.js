@@ -19,3 +19,5 @@ const Question = connection.define('questions', {
 });
 
 Question.sync({force: false}).then(()=>{});// Se não exister cria
+
+module.exports = Question;

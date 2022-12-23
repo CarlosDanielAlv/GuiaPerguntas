@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
-const questionModel = require('./database/Question');
+const Question = require('./database/Question');
 const app = express();
 
 // Database
@@ -23,7 +23,14 @@ app.use(bodyParser.json());
 
 // Router
 app.get('/', (req, res) => {
-    res.render('index');
+    Question.findAll({ raw: true })
+        .then((questions) => {
+            res.render('index',{
+                questions: questions
+            });
+        }).catch((err) => {
+            console.log(err);
+        });
 });
 
 app.get('/questions', (req, res) => {
@@ -34,7 +41,15 @@ app.post('/questionssave', (req, res) => {
     var title = req.body.title;
     var description = req.body.description;
 
-    res.send(`Form Received! Title: ${title}, description: ${description}`);
+    // Responsável por criação INSERT
+    Question.create({
+        title: title,
+        description: description
+    }).then(() => {
+        res.redirect('/');
+    }).catch((err) => {
+        console.log(err);
+    });
 });
 
 app.listen(8080, () => {
