@@ -10,6 +10,10 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
+app.get('/questions', (req, res) => {
+    res.render('questions')
+})
+
 app.listen(8080, () => {
     console.log('Listening on http://localhost:8080');
 });
