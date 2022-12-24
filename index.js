@@ -48,9 +48,13 @@ app.get('/question/:id', (req, res) => {
     }).then((question) => {
 
         if (question !== null) {
-            res.render('question', {
-                question: question
-            });
+            Response.findAll({ where: { question_id: question.id }, order: [['id', 'DESC']] })
+                .then((responses) => {
+                    res.render('question', {
+                        question: question,
+                        responses: responses
+                    });
+                });
         } else {
             console.log(id);
             res.redirect('/');
