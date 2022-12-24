@@ -7,6 +7,18 @@
         <h1><%= question.title %> </h1>  
         <p><%= question.description %> </p>
         <hr>
+
+        <form method="POST" action="/response">
+            <h3>Responda</h3>
+
+            <div class="form-group">
+                <label for="title">Resposta</label>
+                <textarea placeholder="Digite sua resposta" class="form-control" name="body" required></textarea>
+            </div>
+            <input type="hidden" name="questionId" value="<%= question.id %> ">
+            
+            <button type="submit" class="btn btn-primary">Responder</button>
+        </form>
     </div>
   
 </body>

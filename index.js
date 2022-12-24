@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
 const Question = require('./database/Question');
+const Response = require('./database/Response');
 const app = express();
 
 // Database
@@ -43,14 +44,14 @@ app.get('/questions', (req, res) => {
 app.get('/question/:id', (req, res) => {
     var id = req.params.id;
     Question.findOne({
-        where: {id: id}
-    }).then((question) => {     
-           
-        if(question !== null) {
+        where: { id: id }
+    }).then((question) => {
+
+        if (question !== null) {
             res.render('question', {
                 question: question
             });
-        }else{
+        } else {
             console.log(id);
             res.redirect('/');
         }
@@ -67,6 +68,20 @@ app.post('/questionssave', (req, res) => {
         description: description
     }).then(() => {
         res.redirect('/');
+    }).catch((err) => {
+        console.log(err);
+    });
+});
+
+app.post('/response', (req, res) => {
+    var body = req.body.body;
+    var questionId = req.body.questionId;
+
+    Response.create({
+        question_id: questionId,
+        body: body
+    }).then(() => {
+        res.redirect('/question/' + questionId);
     }).catch((err) => {
         console.log(err);
     });
